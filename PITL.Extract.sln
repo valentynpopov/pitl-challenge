@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PITL.Extract.Worker", "PITL.Extract.Worker\PITL.Extract.Worker.csproj", "{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PITL.Extract.Job", "PITL.Extract.Job\PITL.Extract.Job.csproj", "{50E81C49-20F6-4A3F-BA7E-177C35F7521F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE110811-5657-4911-BA1B-7E0225E3B65A}
+	EndGlobalSection
+EndGlobal
