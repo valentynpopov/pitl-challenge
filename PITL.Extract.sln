@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PITL.Extract.Worker", "PITL.Extract.Worker\PITL.Extract.Worker.csproj", "{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PITL.Extract.Worker", "PITL.Extract.Worker\PITL.Extract.Worker.csproj", "{5D3AD3EA-3B87-4FA4-80F0-51A16A36235B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PITL.Extract.Job", "PITL.Extract.Job\PITL.Extract.Job.csproj", "{50E81C49-20F6-4A3F-BA7E-177C35F7521F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PITL.Extract.Job", "PITL.Extract.Job\PITL.Extract.Job.csproj", "{50E81C49-20F6-4A3F-BA7E-177C35F7521F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PITL.Extract.Job.Abstractions", "PITL.Extract.Job.Abstractions\PITL.Extract.Job.Abstractions.csproj", "{B278DE65-21E2-43F2-9164-6DE773133FA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50E81C49-20F6-4A3F-BA7E-177C35F7521F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B278DE65-21E2-43F2-9164-6DE773133FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B278DE65-21E2-43F2-9164-6DE773133FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B278DE65-21E2-43F2-9164-6DE773133FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B278DE65-21E2-43F2-9164-6DE773133FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
