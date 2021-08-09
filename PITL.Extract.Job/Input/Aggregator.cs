@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PITL.Extract.Job.Abstractions.Input;
 using Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace PITL.Extract.Job.Input
 
         public Aggregator(ILogger<Aggregator> logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public PowerPeriod[] GetAggregatedVolumes(IReadOnlyList<PowerTrade> trades)

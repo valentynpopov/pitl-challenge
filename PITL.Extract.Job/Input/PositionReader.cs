@@ -44,11 +44,12 @@ namespace PITL.Extract.Job.Input
             var aggregated = _aggregator.GetAggregatedVolumes(trades);
 
             _logger.LogInformation("Converting periods into timestamps...");
-            var timestamped = from a in aggregated
+            var timestamped = (from a in aggregated
                               let localTime = _timeStamper.ConvertPeriodToTime(extractDate, a.Period)
-                              select new Position(localTime, a.Volume);
-            
-            return timestamped.ToArray();
+                              select new Position(localTime, a.Volume)).ToArray();
+
+            _logger.LogInformation("Positions are ready");
+            return timestamped;
         }
     }
 }

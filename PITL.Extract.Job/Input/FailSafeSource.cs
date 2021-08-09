@@ -2,7 +2,6 @@
 using PITL.Extract.Job.Abstractions.Input;
 using Services;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -19,9 +18,9 @@ namespace PITL.Extract.Job.Input
 
         public FailSafeSource(IPowerService powerService, IClock clock, ILogger<FailSafeSource> logger, DateTime timeToGiveUp)
         {
-            _powerService = powerService;
-            _clock = clock;
-            _logger = logger;
+            _powerService = powerService ?? throw new ArgumentNullException(nameof(powerService));
+            _clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _timeToGiveUp = timeToGiveUp;
         }
 

@@ -13,7 +13,7 @@ namespace PITL.Extract.Job.Input
 
         public Validator(ILogger<Validator> logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public bool IsValidResponse(DateTime extractDateTime, IReadOnlyList<PowerTrade> trades)

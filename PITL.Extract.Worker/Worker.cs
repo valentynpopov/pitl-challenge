@@ -4,8 +4,6 @@ using PITL.Extract.Job;
 using PITL.Extract.Job.Abstractions.Input;
 using PITL.Extract.Job.Abstractions.Output;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,12 +17,12 @@ namespace PITL.Extract.Worker
 
         public Worker(ILogger<Worker> logger, IPositionReader positionReader, ICsvFileCreator csvFileCreator)
         {
-            _logger = logger;
-            _positionReader = positionReader;
-            _csvFileCreator = csvFileCreator;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _positionReader = positionReader ?? throw new ArgumentNullException(nameof(positionReader));
+            _csvFileCreator = csvFileCreator ?? throw new ArgumentNullException(nameof(csvFileCreator));
         }
 
-        private ExtractJob CreateJob() => new ExtractJob(_positionReader, _csvFileCreator);
+        private ExtractJob CreateJob() => new(_positionReader, _csvFileCreator);
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

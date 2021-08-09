@@ -15,9 +15,9 @@ namespace PITL.Extract.Job.Output
 
         public CsvFileCreator(IFileNameGenerator fileNameGenerator, ICsvStringBuilder csvStringBuilder, ILogger<CsvFileCreator> logger)
         {
-            _fileNameGenerator = fileNameGenerator;
-            _csvStringBuilder = csvStringBuilder;
-            _logger = logger;
+            _fileNameGenerator = fileNameGenerator ?? throw new ArgumentNullException(nameof(fileNameGenerator));
+            _csvStringBuilder = csvStringBuilder ?? throw new ArgumentNullException(nameof(csvStringBuilder));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public void Create(DateTime extractTime, IReadOnlyList<Position> positions)
