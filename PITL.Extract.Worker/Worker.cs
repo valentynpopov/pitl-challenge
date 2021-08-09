@@ -50,7 +50,6 @@ namespace PITL.Extract.Worker
                 var nextExtractTime = extractTime.AddMinutes(_intervalInMinutes);
                 var delay = nextExtractTime - _clock.UtcNow;
 
-                // It could be that we need the next extract straightaway
                 if (delay > TimeSpan.Zero)
                 {
                     _logger.LogInformation("Waiting for {delay} until the next extract", delay);

@@ -23,13 +23,17 @@ namespace PITL.Extract.Job.Output
         public void Create(DateTime extractTime, IReadOnlyList<Position> positions)
         {
             var fileName = _fileNameGenerator.GetFileName(extractTime);
+
+            _logger.LogInformation("Generating content for file {fileName}", fileName);
             var content = _csvStringBuilder.GetContent(positions);
 
             try
             {
+                _logger.LogInformation("Creating file {fileName}", fileName);
                 File.WriteAllText(fileName, content);
+                _logger.LogInformation("Done");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError("Could not create {fileName}: {message}", fileName, ex.Message);
             }

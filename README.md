@@ -1,5 +1,4 @@
 Win Serv
-log to file
 specflow
 
 
