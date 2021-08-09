@@ -1,4 +1,5 @@
 ﻿using PITL.Extract.Job.Abstractions;
+using PITL.Extract.Job.Abstractions.Input;
 using System;
 
 namespace PITL.Extract.Job.Input

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using PITL.Extract.Job.Abstractions;
+using PITL.Extract.Job.Abstractions.Input;
 using Services;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace PITL.Extract.Job.Input
 {
@@ -39,7 +41,8 @@ namespace PITL.Extract.Job.Input
                     trades = Array.Empty<PowerTrade>();
                 }
                 else 
-                    _logger.LogInformation("PowerService returned {tradeCount} response in {elapsed} ms", trades.Length);
+                    _logger.LogInformation("PowerService returned {tradeCount} response in {elapsed} ms", 
+                        trades.Length, _stopwatch.ElapsedMilliseconds);
                 return true;
             }
             catch (PowerServiceException psex)
@@ -56,10 +59,16 @@ namespace PITL.Extract.Job.Input
             return false;
         }
 
-        public PowerTrade[] GetTradesOrEmpty(DateTime date)
+        public PowerTrade[] GetTradesOrEmpty(DateTime date, CancellationToken stoppingToken)
         {
             do
             {
+                if (stoppingToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation("Cancellation requested");
+                    return Array.Empty<PowerTrade>();
+                }
+
                 if (TryGetTrades(date, out var trades))
                     return trades;                
             }

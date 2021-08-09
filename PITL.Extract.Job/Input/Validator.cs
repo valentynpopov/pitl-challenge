@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using PITL.Extract.Job.Abstractions;
+using PITL.Extract.Job.Abstractions.Input;
 using Services;
 
 namespace PITL.Extract.Job.Input
@@ -51,8 +51,9 @@ namespace PITL.Extract.Job.Input
                 _logger.LogWarning("Trade time {tradeDate} does not match extract time {extractDateTime}", 
                     trade.Date, extractDateTime);
 
-            var nonStandardPeriods = periods.Where(period => period < 1 || period > 24);
-            _logger.LogWarning("Non-standard periods found: {periods}", string.Join(',', nonStandardPeriods));
+            var nonStandardPeriods = periods.Where(period => period < 1 || period > 24).ToArray();
+            if (nonStandardPeriods.Length > 0)
+                _logger.LogWarning("Non-standard periods found: {periods}", string.Join(',', nonStandardPeriods));
 
             if (periods.Length < 24)
                 _logger.LogWarning("Normally 24 periods are expected, but only {periods} found", periods.Length);

@@ -15,7 +15,7 @@ namespace PITL.Extract.Job.Output
 
         public string GetFileName(DateTime extractDateTime)
         {
-            var fileName = $"PowerPosition_{extractDateTime:YYYYMMDD_HHmm}.csv";
+            var fileName = $"PowerPosition_{extractDateTime:yyyyMMdd_HHmm}.csv";
             return Path.Combine(_outputPath, fileName);
         }
     }

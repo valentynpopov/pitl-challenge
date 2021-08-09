@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using PITL.Extract.Job.Abstractions;
+using PITL.Extract.Job.Abstractions.Input;
 using Services;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +22,7 @@ namespace PITL.Extract.Job.Input
             _logger.LogInformation("Aggregating {tradeCount} trades...", trades.Count);
             _stopwatch.Restart();
 
-            var result = trades
+            var aggregated = trades
                 .SelectMany(trade => trade.Periods)
                 // ignore non-standard periods
                 .Where(period => period.Period >= 1 && period.Period <= 24)
@@ -37,7 +37,7 @@ namespace PITL.Extract.Job.Input
 
             _stopwatch.Stop();
             _logger.LogInformation("Aggregated {tradeCount} trades in {elapsed} ms", trades.Count, _stopwatch.ElapsedMilliseconds);
-            return result.ToArray();
+            return aggregated.ToArray();
         }
     }
 }

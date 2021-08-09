@@ -7,22 +7,22 @@ using System.IO;
 
 namespace PITL.Extract.Job.Output
 {
-    public class FileCreator : IFileCreator
+    public class CsvFileCreator : ICsvFileCreator
     {
         private readonly IFileNameGenerator _fileNameGenerator;
         private readonly ICsvStringBuilder _csvStringBuilder;
-        private readonly ILogger<FileCreator> _logger;
+        private readonly ILogger<CsvFileCreator> _logger;
 
-        public FileCreator(IFileNameGenerator fileNameGenerator, ICsvStringBuilder csvStringBuilder, ILogger<FileCreator> logger)
+        public CsvFileCreator(IFileNameGenerator fileNameGenerator, ICsvStringBuilder csvStringBuilder, ILogger<CsvFileCreator> logger)
         {
             _fileNameGenerator = fileNameGenerator;
             _csvStringBuilder = csvStringBuilder;
             _logger = logger;
         }
 
-        public void Create(IReadOnlyList<Position> positions, DateTime extractDateTime)
+        public void Create(DateTime extractTime, IReadOnlyList<Position> positions)
         {
-            var fileName = _fileNameGenerator.GetFileName(extractDateTime);
+            var fileName = _fileNameGenerator.GetFileName(extractTime);
             var content = _csvStringBuilder.GetContent(positions);
 
             try
