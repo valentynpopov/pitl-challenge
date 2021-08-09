@@ -30,6 +30,10 @@ namespace PITL.Extract.Worker
             if (options is null)
                 throw new ArgumentNullException(nameof(options));
             _intervalInMinutes = options.Value.IntervalInMinutes;
+
+            _logger.LogInformation("Interval between extracts is {interval} minutes", _intervalInMinutes);
+            _logger.LogInformation("Give up calling PowerService after {timeToGiveUp}", options.Value.TimeToGiveUp);
+            _logger.LogInformation("Output path for CSV file is ", options.Value.OutputPath);
         }
 
         private ExtractJob CreateJob() => new(_positionReader, _csvFileCreator);

@@ -1,5 +1,3 @@
-output config params
-not more than a day
 Win Serv
 log to file
 specflow
@@ -103,8 +101,8 @@ For a commerical project I might have considered using the following libraries:
 - CsvHelper
 - Quartz.Net or Hangfire for scheduling jobs
 - Polly for retries and circuit breaker
-- Serilog
 - NodaTime
+- Serlog
 - TPL Dataflow
 - NInject for convention-based DI and better factory support
 

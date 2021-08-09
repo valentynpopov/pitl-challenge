@@ -5,8 +5,8 @@ using PITL.Extract.Job.Abstractions.Input;
 using PITL.Extract.Job.Abstractions.Output;
 using PITL.Extract.Job.Input;
 using PITL.Extract.Job.Output;
+using Serilog;
 using Services;
-using System;
 
 namespace PITL.Extract.Worker
 {
@@ -14,7 +14,14 @@ namespace PITL.Extract.Worker
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("PITL.Extract_.log", rollingInterval: RollingInterval.Day)
+                .WriteTo.Console()
+                .CreateLogger();
+            
             CreateHostBuilder(args).Build().Run();
+
+            Log.CloseAndFlush();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,7 +29,9 @@ namespace PITL.Extract.Worker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
-                    services.AddOptions<ExtractOptions>().BindConfiguration("ExtractOptions");
+                    services.AddOptions<ExtractOptions>()
+                    .BindConfiguration("ExtractOptions")
+                    .ValidateDataAnnotations();
 
                     services.AddSingleton<IPowerService, PowerService>();
                     services.AddSingleton<IAggregator, Aggregator>();
@@ -35,6 +44,7 @@ namespace PITL.Extract.Worker
                     services.AddSingleton<ICsvFileCreator, CsvFileCreator>();
                     services.AddSingleton<ICsvStringBuilder, CsvStringBuilder>();
                     services.AddSingleton<IFileNameGenerator, FileNameGenerator>();
-                });
+                })
+            .UseSerilog();
     }
 }

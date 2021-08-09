@@ -46,7 +46,7 @@ namespace PITL.Extract.Job.Input
                     trades = Array.Empty<PowerTrade>();
                 }
                 else 
-                    _logger.LogInformation("PowerService returned {tradeCount} response in {elapsed} ms", 
+                    _logger.LogInformation("PowerService returned {tradeCount} trades in {elapsed} ms", 
                         trades.Length, _stopwatch.ElapsedMilliseconds);
                 return true;
             }
