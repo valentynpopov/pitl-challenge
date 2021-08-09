@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using PITL.Extract.Job.Abstractions;
 using PITL.Extract.Job.Abstractions.Input;
 using Services;
 using System;
@@ -13,24 +15,28 @@ namespace PITL.Extract.Job.Input
         private readonly IPowerService _powerService;
         private readonly IClock _clock;
         private readonly ILogger<FailSafeSource> _logger;
-        private readonly DateTime _timeToGiveUp;
+        private readonly TimeSpan _timeToGiveUp;
         private readonly Stopwatch _stopwatch = new();
 
-        public FailSafeSource(IPowerService powerService, IClock clock, ILogger<FailSafeSource> logger, DateTime timeToGiveUp)
+        public FailSafeSource(IPowerService powerService, IClock clock, ILogger<FailSafeSource> logger, 
+            IOptions<ExtractOptions> options)
         {
             _powerService = powerService ?? throw new ArgumentNullException(nameof(powerService));
             _clock = clock ?? throw new ArgumentNullException(nameof(clock));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _timeToGiveUp = timeToGiveUp;
+
+            if (options is null)
+                throw new ArgumentNullException(nameof(options));
+            _timeToGiveUp = options.Value.TimeToGiveUp;
         }
 
-        private bool TryGetTrades(DateTime date, out PowerTrade[] trades)
+        private bool TryGetTrades(DateTime extractDateTime, out PowerTrade[] trades)
         {
             _stopwatch.Restart();
             try
             {
                 _logger.LogInformation("Getting trades from PowerService...");
-                trades = _powerService.GetTrades(date).ToArray();
+                trades = _powerService.GetTrades(extractDateTime).ToArray();
                 _stopwatch.Stop();
 
                 if (trades == null)
@@ -58,8 +64,10 @@ namespace PITL.Extract.Job.Input
             return false;
         }
 
-        public PowerTrade[] GetTradesOrEmpty(DateTime date, CancellationToken stoppingToken)
+        public PowerTrade[] GetTradesOrEmpty(DateTime extractTime, CancellationToken stoppingToken)
         {
+            var deadline = _clock.UtcNow + _timeToGiveUp;
+
             do
             {
                 if (stoppingToken.IsCancellationRequested)
@@ -68,10 +76,10 @@ namespace PITL.Extract.Job.Input
                     return Array.Empty<PowerTrade>();
                 }
 
-                if (TryGetTrades(date, out var trades))
+                if (TryGetTrades(extractTime.Date, out var trades))
                     return trades;                
             }
-            while (_clock.UtcNow < _timeToGiveUp);
+            while (_clock.UtcNow < deadline);
 
             _logger.LogError("Could not get a response from PowerService in time, we will assume there are no trades");
             return Array.Empty<PowerTrade>();

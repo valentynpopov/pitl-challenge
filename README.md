@@ -1,3 +1,10 @@
+output config params
+not more than a day
+Win Serv
+log to file
+specflow
+
+
 # PITL Coding Challenge
 
 ## Platform
@@ -18,13 +25,20 @@ I believe that is acceptable in such a single-purpose microservice.
 
 ## Assumptions
 ### Durability
-As it is required to never miss a scheduled extract, I attempt to create a self-healing system.
+As it is required to never miss a scheduled extract, we attempt to create a self-healing system.
 It is assumed that in case of a non-critical error we can create an empty extract, to be consumed by the downstream systems.
 
 The idea is that we are not sure whether someone will be monitoring logs constantly, so it might be better to produce 
 an empty extract to draw someone''s attention.
 
 However, in case of a critical error we will miss an extract (rather than create it using unrealiable data).
+
+Instead of limit the maximum number of retries when calling PowerService, 
+we set a deadline: the final attempt to call PowerService should be made no later than
+30 seconds after the first one.
+
+It is assumed that caching the previous PowerService response and returning it in case of a failure
+would do no good.
 
 ### Time
 My understanding of the requirements is that it is OK to treat GMT as local time, and to assume 
@@ -53,28 +67,6 @@ It is not acceptable for the service to return duplicate periods for the same tr
 It is also not acceptable if the date returned by the service does not match the requested date (although we will ignore
 differences in the time portion).
 
-
-
-Tick Less than a minute? not more than a day?
-Not fractions of minutes
-
-
-linq for aggregation - no premature optimisation
-
-dont care about retries, just time
-
-
-                 
-
-
-Not using async because fire and forget
-service returns local time - shift daylight saving should take care for
-TODO:
-output config params
-no chaching
-
-
-
 ## Potential improvements for productionisation
 ### Features
 I would consider collecting statistics about the average response time of PowerService, 
@@ -99,6 +91,12 @@ It might be better not to hardcode "24" as the number of periods.
 
 If .NET 6 was publicly available, I would have used DateOnly and TimeOnly classes.
 
+### Optimisation
+It was assumed that time spent processing trades is always neglibile comparing to the slow PowerService.
+If it was not the case, then we could, for example, stop using Linq for aggregation.
+Also, instead of having a record with Period and Volume we could just have an array with 24 elements 
+where array index corresponds to the period.
+
 ### Third-party libraries
 For a commerical project I might have considered using the following libraries:
 - Topshelf for bootstrapping Windows Service
@@ -107,5 +105,6 @@ For a commerical project I might have considered using the following libraries:
 - Polly for retries and circuit breaker
 - Serilog
 - NodaTime
+- TPL Dataflow
 - NInject for convention-based DI and better factory support
 

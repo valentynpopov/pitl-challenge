@@ -1,4 +1,6 @@
-﻿using PITL.Extract.Job.Abstractions.Output;
+﻿using Microsoft.Extensions.Options;
+using PITL.Extract.Job.Abstractions;
+using PITL.Extract.Job.Abstractions.Output;
 using System;
 using System.IO;
 
@@ -8,9 +10,12 @@ namespace PITL.Extract.Job.Output
     {
         private readonly string _outputPath;
 
-        public FileNameGenerator(string outputPath)
+        public FileNameGenerator(IOptions<ExtractOptions> options)
         {
-            _outputPath = outputPath ?? throw new ArgumentNullException(nameof(outputPath));
+            if (options is null)
+                throw new ArgumentNullException(nameof(options));
+            _outputPath = options.Value.OutputPath
+                          ?? throw new ArgumentNullException(nameof(options.Value.OutputPath));
         }
 
         public string GetFileName(DateTime extractDateTime)

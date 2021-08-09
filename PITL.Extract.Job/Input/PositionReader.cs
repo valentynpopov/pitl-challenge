@@ -27,14 +27,11 @@ namespace PITL.Extract.Job.Input
 
         public Position[] GetPositionsExtract(DateTime extractTime, CancellationToken stoppingToken)
         {
-            // we only need the date portion
-            var extractDate = extractTime.Date;
-
-            _logger.LogInformation("Getting trades for {extractDate}...", extractDate);
-            var trades = _failSafeSource.GetTradesOrEmpty(extractDate, stoppingToken);
+            _logger.LogInformation("Getting trades for {extractTime}...", extractTime);
+            var trades = _failSafeSource.GetTradesOrEmpty(extractTime, stoppingToken);
 
             _logger.LogInformation("Validating trades...");
-            if (!_validator.IsValidResponse(extractDate, trades))
+            if (!_validator.IsValidResponse(extractTime.Date, trades))
             {
                 trades = Array.Empty<PowerTrade>();
                 _logger.LogWarning("As invalid trades have been returned, assuming there were no trades");
@@ -45,7 +42,7 @@ namespace PITL.Extract.Job.Input
 
             _logger.LogInformation("Converting periods into timestamps...");
             var timestamped = (from a in aggregated
-                              let localTime = _timeStamper.ConvertPeriodToTime(extractDate, a.Period)
+                              let localTime = _timeStamper.ConvertPeriodToTime(extractTime.Date, a.Period)
                               select new Position(localTime, a.Volume)).ToArray();
 
             _logger.LogInformation("Positions are ready");
