@@ -12,6 +12,11 @@ The aim was to create a minimum viable product, and hopefully avoid major mistak
 Assessing coding exercises is time-consuming enough even without candidates throwing in unnessary libraries, 
 performing premature optimisation, using complex design patterns and implementing features they were not asked to implement.
 
+I was planning to create more tests, and also make use of SpecFlow.
+However, I understand that there is another candidate in the second stage. 
+Therefore, it would not been wise to use the allocated whole week, as my efforts might all be for nothing.
+I think the tests I did create are enough to demonstrate that I would have been able to do it properly if given more time. 
+
 The detailed list of potential improvements is at the end of this document.
 
 ## Naming
