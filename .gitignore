@@ -9,3 +9,6 @@
 /PITL.Extract.Job/bin/Debug/net5.0
 /PITL.Extract.Job.Abstractions/obj
 /PITL.Extract.Job.Abstractions/bin/Debug/net5.0
+/PITL.Extract.Job/bin/Release/net5.0
+/PITL.Extract.Job.Abstractions/bin/Release/net5.0
+/PITL.Extract.Worker/bin/Release/net5.0

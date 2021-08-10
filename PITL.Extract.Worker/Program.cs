@@ -45,6 +45,7 @@ namespace PITL.Extract.Worker
                     services.AddSingleton<ICsvStringBuilder, CsvStringBuilder>();
                     services.AddSingleton<IFileNameGenerator, FileNameGenerator>();
                 })
-            .UseSerilog();
+            .UseSerilog()
+            .UseWindowsService();
     }
 }

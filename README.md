@@ -1,12 +1,10 @@
-Win Serv
-specflow
-
-
 # PITL Coding Challenge
 
 ## Platform
-The solution is implemented as Windows Service, and requires .NET 5 to be built.
-No third-party libraries should be requred.
+The solution requires .NET 5 to be built.
+
+It can be executed as a console from Visual Studio 2019, or installed as a Windows Service using sc.exe.
+To prepare binaries for Windows Service, WindowsService.pubxml profile can be used after clicking Publish.
 
 ## Approach
 The aim was to create a minimum viable product, and hopefully avoid major mistakes.
@@ -101,7 +99,6 @@ For a commerical project I might have considered using the following libraries:
 - Quartz.Net or Hangfire for scheduling jobs
 - Polly for retries and circuit breaker
 - NodaTime
-- Serlog
 - TPL Dataflow
 - NInject for convention-based DI and better factory support
 
