@@ -10,16 +10,19 @@ namespace PITL.Extract.Job.Input
 {
     public class Aggregator : IAggregator
     {
-        private readonly ILogger<Aggregator> _logger;
+        private readonly ILogger<IAggregator> _logger;
         private readonly Stopwatch _stopwatch = new();
 
-        public Aggregator(ILogger<Aggregator> logger)
+        public Aggregator(ILogger<IAggregator> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public PowerPeriod[] GetAggregatedVolumes(IReadOnlyList<PowerTrade> trades)
         {
+            if (trades is null)
+                throw new ArgumentNullException(nameof(trades));
+
             _logger.LogInformation("Aggregating {tradeCount} trades...", trades.Count);
             _stopwatch.Restart();
 

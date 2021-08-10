@@ -45,6 +45,8 @@ It is assumed that our scheduling requirements are not very strict, and we do no
 Therefore, it is OK to use Task.Delay() rather than kick off a job at an exact specific time.
 
 ### PowerService
+As per specification, we do not allow customising the number of periods - it is always 24.
+
 It is been noted that the service accept date and time, and returns the same date and time as supplied. However,
 my understanding is we should passing just the date portion.
 
@@ -94,6 +96,7 @@ where array index corresponds to the period.
 
 ### Third-party libraries
 For a commerical project I might have considered using the following libraries:
+- Specflow
 - Topshelf for bootstrapping Windows Service
 - CsvHelper
 - Quartz.Net or Hangfire for scheduling jobs

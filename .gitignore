@@ -12,3 +12,8 @@
 /PITL.Extract.Job/bin/Release/net5.0
 /PITL.Extract.Job.Abstractions/bin/Release/net5.0
 /PITL.Extract.Worker/bin/Release/net5.0
+/PITL.Extract.Job.Tests/bin/Debug/net5.0
+/PITL.Extract.Job.Tests/obj
+/PITL.Extract.Worker/PowerPosition_20210810_0924.csv
+/PITL.Extract.Worker/PowerPosition_20210810_0730.csv
+/PITL.Extract.Worker/PITL.Extract_20210810.log
